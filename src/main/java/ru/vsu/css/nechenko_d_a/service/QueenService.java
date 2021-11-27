@@ -73,7 +73,7 @@ public class QueenService {
     /*
     ходы, которые можно сделать, побив фигуру противника
      */
-    protected List<Step> stepWhereCanDoBeat(Figure figure, Player player, Game game, Direction direction) {
+    private List<Step> stepWhereCanDoBeat(Figure figure, Player player, Game game, Direction direction) {
         List<Step> steps = new ArrayList<>();
         Cell from = game.getFigureCell().get(figure);
         Cell cell = from;

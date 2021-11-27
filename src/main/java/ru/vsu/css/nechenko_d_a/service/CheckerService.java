@@ -61,7 +61,7 @@ public class CheckerService {
         return null;
     }
 
-    protected Step stepWhereCanDoBeat(Figure figure, Player player, Game game, Direction direction) {
+    private Step stepWhereCanDoBeat(Figure figure, Player player, Game game, Direction direction) {
         Cell cell = game.getFigureCell().get(figure);
         return new Step(cell, cell.getNeighbours().get(direction).getNeighbours().get(direction), figure, player,
                 game.getCellFigure().get(cell.getNeighbours().get(direction)));

@@ -14,11 +14,8 @@ public class Game {
     private Map<Figure, Player> figurePlayerMap;
     private Map<Player, List<Direction>> availableDirections;
 
-    //actually for figures
-    private List<Cell> cells;
     private Map<Cell, Figure> cellFigure;
     private Map<Figure, Cell> figureCell;
-    private Map<TypeOfFigure, List<Direction>> figuresDirections;
 
 
     private Game() {
@@ -78,14 +75,6 @@ public class Game {
         this.availableDirections = availableDirections;
     }
 
-    public List<Cell> getCells() {
-        return cells;
-    }
-
-    public void setCells(List<Cell> cells) {
-        this.cells = cells;
-    }
-
     public Map<Cell, Figure> getCellFigure() {
         return cellFigure;
     }
@@ -102,46 +91,7 @@ public class Game {
         this.figureCell = figureCell;
     }
 
-//    public Map<Figure, Cell> getBasicFigureCellPosition() {
-//        return basicFigureCellPosition;
-//    }
-//
-//    public void setBasicFigureCellPosition(Map<Figure, Cell> basicFigureCellPosition) {
-//        this.basicFigureCellPosition = basicFigureCellPosition;
-//    }
-//
-//    public Map<Cell, Figure> getBasicCellFigurePosition() {
-//        return basicCellFigurePosition;
-//    }
-//
-//    public void setBasicCellFigurePosition(Map<Cell, Figure> basicCellFigurePosition) {
-//        this.basicCellFigurePosition = basicCellFigurePosition;
-//    }
-
-    public Map<TypeOfFigure, List<Direction>> getFiguresDirections() {
-        return figuresDirections;
-    }
-
-    public void setFiguresDirections(Map<TypeOfFigure, List<Direction>> figuresDirections) {
-        this.figuresDirections = figuresDirections;
-    }
-
-
-    public Map<Cell, Figure> getMapCellFigure() {
-        return mapCellFigure;
-    }
-
-    public void setMapCellFigure(Map<Cell, Figure> mapCellFigure) {
-        this.mapCellFigure = mapCellFigure;
-    }
-
-    private Map<Player, List<Figure>> playerCheckersMap;
-
-    private Map<Player, List<Direction>> playerDirectionsMap;
-
     private Map<Figure, Cell> mapFigureCell;
-
-    private Map<Cell, Figure> mapCellFigure;
 
     public Queue<Player> getPlayers() {
         return players;
@@ -150,31 +100,6 @@ public class Game {
     public void setPlayers(Queue<Player> players) {
         this.players = players;
     }
-
-    public Map<Player, List<Figure>> getPlayerCheckersMap() {
-        return playerCheckersMap;
-    }
-
-    public void setPlayerCheckersMap(Map<Player, List<Figure>> playerCheckersMap) {
-        this.playerCheckersMap = playerCheckersMap;
-    }
-
-    public Map<Player, List<Direction>> getPlayerDirectionsMap() {
-        return playerDirectionsMap;
-    }
-
-    public void setPlayerDirectionsMap(Map<Player, List<Direction>> playerDirectionsMap) {
-        this.playerDirectionsMap = playerDirectionsMap;
-    }
-
-    public Map<Figure, Cell> getMapFigureCell() {
-        return mapFigureCell;
-    }
-
-    public void setMapFigureCell(Map<Figure, Cell> mapFigureCell) {
-        this.mapFigureCell = mapFigureCell;
-    }
-
 
     public static Game createGame() {
         return new Game();

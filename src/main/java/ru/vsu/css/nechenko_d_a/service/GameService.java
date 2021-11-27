@@ -37,8 +37,10 @@ public class GameService {
     private Player doMove(Game game) {
         Player player = game.getPlayers().poll();
         System.out.println(player != null ? player.getName() : null + "do movement");
-        if (!playerService.doMove(player, game) ||
-                game.getPlayerFigures().get(game.getPlayers().peek()).size() < 1) {
+        if (!playerService.doMove(player, game)){
+            return game.getPlayers().peek();
+        }
+        if (game.getPlayerFigures().get(game.getPlayers().peek()).size() < 1) {
             return player;
         }
         game.getPlayers().offer(player);

@@ -84,7 +84,6 @@ public class BoardService {
                 for (int j = 0; j < 4; j++) {
                     System.out.print("      ╚═══╝ ");
                 }
-                System.out.println();
             } else {
                 for (int j = 0; j < 4; j++) {
                     System.out.print("╔═══╗       ");
@@ -104,8 +103,8 @@ public class BoardService {
                 for (int j = 0; j < 4; j++) {
                     System.out.print("╚═══╝       ");
                 }
-                System.out.println();
             }
+            System.out.println();
 
 
         }
@@ -131,7 +130,6 @@ public class BoardService {
                     }
                 }
                 Collections.reverse(lineListOfCells);
-                board.add(lineListOfCells);
             } else {
                 if (i != 7) {
                     for (int c = 0; c < 4; c++) {
@@ -152,8 +150,8 @@ public class BoardService {
                         lineListOfCells.add(curr);
                     }
                 }
-                board.add(lineListOfCells);
             }
+            board.add(lineListOfCells);
 
         }
         return board;

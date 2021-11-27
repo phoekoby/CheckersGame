@@ -9,9 +9,13 @@ import java.util.List;
 
 public class PlayerService {
     private final FigureService figureService = new FigureService();
-    private final CheckerService checkerService = new CheckerService(figureService);
 
-    public void doMove(Player player, Game game) {
+    /*
+    Совершение хода:
+    получаем список ходов, которые мы обязаны сделать и делаем один из этих ходов,
+    если таковых нет, берем все возможные и ходим один из способов
+     */
+    public boolean doMove(Player player, Game game) {
         boolean beat = false;
         List<Step> steps = figureService.getNecessarySteps(game, player);
         if (!steps.isEmpty()) {
@@ -26,24 +30,35 @@ public class PlayerService {
             }
         } else {
             List<Step> availableSteps = figureService.getAvailableSteps(game, player);
+            if (availableSteps.size() < 1) {
+                System.out.println("У Игрока " + player.getName() + " не осталось ходов");
+                return false;
+            }
             Step step = availableSteps.get((int) (Math.random() * (availableSteps.size() - 1)));
             doStep(step, game, beat);
         }
-
+        return true;
     }
 
+    /*
+    Перестановка фигур на поле
+     */
     private void doStep(Step step, Game game, boolean beat) {
         game.getCellFigure().remove(step.getFrom());
         game.getCellFigure().put(step.getTo(), step.getFigure());
         game.getFigureCell().put(step.getFigure(), step.getTo());
         if (figureService.isItEndForMakingQueen(step.getPlayer(), step.getTo(), game)) {
-            figureService.makingQueenFromChecker(step.getPlayer(), step.getFigure(), game);
+            figureService.makingQueenFromChecker(step.getFigure());
         }
         if (beat) {
             beat(step, game);
         }
     }
 
+    /*
+    "Бьем"
+    Если в ходе мы бьем какую-то шашку, ее нужно убрать с поля
+     */
     private void beat(Step step, Game game) {
         game.getCellFigure().remove(game.getFigureCell().get(step.getBeatenFigure()));
         game.getFigureCell().remove(step.getBeatenFigure());

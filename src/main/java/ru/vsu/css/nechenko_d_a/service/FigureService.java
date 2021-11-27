@@ -22,52 +22,67 @@ public class FigureService {
         return true;
     }
 
-    public void makingQueenFromChecker(Player player, Figure figure, Game game) {
+    public void makingQueenFromChecker(Figure figure) {
         figure.setType(TypeOfFigure.QUEEN);
     }
 
+    /*
+    Проверка на наличие у фигуры ходов, в зависимости от типа фигуры, разные проверки
+     */
     protected boolean haveAvailableMoves(Figure figure, Game game, Player player) {
-        Cell cell = game.getFigureCell().get(figure);
-        if(figure.getType()==TypeOfFigure.QUEEN){
-            for (Direction direction : Direction.values()) {
-                if (cell.getNeighbours().containsKey(direction) && !game.getCellFigure().containsKey(cell.getNeighbours().get(direction))) {
-                    return true;
-                }
-            }
-        }else {
-            for (Direction direction : game.getAvailableDirections().get(player)) {
-                if (cell.getNeighbours().containsKey(direction) && !game.getCellFigure().containsKey(cell.getNeighbours().get(direction))) {
-                    return true;
-                }
-            }
+        if (figure.getType() == TypeOfFigure.QUEEN) {
+            return queenService.haveAvailableMoves(figure, game);
+        } else {
+            return checkerService.haveAvailableMoves(figure, game, player);
         }
-        return false;
     }
 
+    /*
+    Получение абсолютно всех обязательных ходов
+     */
     public List<Step> getNecessarySteps(Game game, Player player) {
         List<Step> necessarySteps = new ArrayList<>();
         necessarySteps.addAll(queenService.getNecessarySteps(game, player));
         necessarySteps.addAll(checkerService.getNecessarySteps(game, player));
         return necessarySteps;
     }
-    public List<Step> getAvailableSteps(Game game, Player player){
-        List<Step> availableStep= new ArrayList<>();
-        availableStep.addAll(checkerService.getAvailableSteps(game,player));
-        availableStep.addAll(queenService.getAvailableSteps(game,player));
+
+    /*
+        Получение абсолютно всех возможных ходов
+     */
+    public List<Step> getAvailableSteps(Game game, Player player) {
+        List<Step> availableStep = new ArrayList<>();
+        availableStep.addAll(checkerService.getAvailableSteps(game, player));
+        availableStep.addAll(queenService.getAvailableSteps(game, player));
         return availableStep;
     }
 
+    /*
+    доступные для хода фигуры
+     */
     public List<Figure> availableFigures(Game game, Player player, TypeOfFigure typeOfFigure) {
         List<Figure> allFiguresOfOnePLayer = game.getPlayerFigures().get(player);
         return allFiguresOfOnePLayer.stream()
-                .filter(figure -> haveAvailableMoves(figure, game, player) && figure.getType()==typeOfFigure)
+                .filter(figure -> haveAvailableMoves(figure, game, player) && figure.getType() == typeOfFigure)
                 .collect(Collectors.toList());
     }
+
+    /*
+    получение списка фигур, у которых есть обязательные ходы
+     */
     protected List<Figure> listOfFigureWithNecessaryMoves(Game game, Player player, TypeOfFigure typeOfFigure) {
         List<Figure> allFigures = game.getPlayerFigures().get(player);
         return allFigures.stream()
-                .filter(figure -> figure.getType() == typeOfFigure && (typeOfFigure==TypeOfFigure.QUEEN ?
+                .filter(figure -> figure.getType() == typeOfFigure && (typeOfFigure == TypeOfFigure.QUEEN ?
                         queenService.canIBeat(figure, player, game) != null : checkerService.canIBeat(figure, player, game) != null))
                 .collect(Collectors.toList());
+    }
+
+    /*
+    Проверка наличия соседней клетки по заданному направлению и отсутствия на ней фигуры
+     */
+    protected boolean checkNeighbourCellAndIsFigureOnThisCell(Game game, Direction direction, Cell cell) {
+        return cell.getNeighbours().containsKey(direction) &&
+                !game.getCellFigure().containsKey(cell.getNeighbours().get(direction));
     }
 }

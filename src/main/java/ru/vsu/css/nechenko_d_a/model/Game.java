@@ -12,27 +12,21 @@ public class Game {
     private final Map<Player, Map<TypeOfFigure, String>> visualFigure;
     private Map<Player, List<Figure>> playerFigures;
     private Map<Figure, Player> figurePlayerMap;
-    private Map<Player,List<Direction>> availableDirections;
+    private Map<Player, List<Direction>> availableDirections;
 
     //actually for figures
     private List<Cell> cells;
     private Map<Cell, Figure> cellFigure;
     private Map<Figure, Cell> figureCell;
-//    private Map<Figure, Cell> basicFigureCellPosition;
-//    private Map<Cell, Figure> basicCellFigurePosition;
     private Map<TypeOfFigure, List<Direction>> figuresDirections;
 
-    //game properties
-    private GameStatus status;
-    private List<Step> steps;
 
-    private Game(){
+    private Game() {
         players = new LinkedList<>();
-        steps = new ArrayList<>();
         visualFigure = new HashMap<>();
     }
 
-    public Cell getRightUpCell(){
+    public Cell getRightUpCell() {
         return rightUpCell;
     }
 
@@ -132,13 +126,6 @@ public class Game {
         this.figuresDirections = figuresDirections;
     }
 
-    public GameStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(GameStatus status) {
-        this.status = status;
-    }
 
     public Map<Cell, Figure> getMapCellFigure() {
         return mapCellFigure;
@@ -188,15 +175,8 @@ public class Game {
         this.mapFigureCell = mapFigureCell;
     }
 
-    public List<Step> getSteps() {
-        return steps;
-    }
 
-    public void setSteps(List<Step> steps) {
-        this.steps = steps;
-    }
-
-    public static Game createGame(){
+    public static Game createGame() {
         return new Game();
     }
 }
